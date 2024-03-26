@@ -28,7 +28,7 @@ public class ChatDto implements Serializable {
         assert chat.getMessages() != null;
         assert chat.getUsers() != null;
         return new ChatDto(chat.getChatName(), chat.getChatDescription(), chat.getCreatedAt(),
-                chat.getUsers().stream().map(user -> new UserDto(user.getId(), user.getName(), user.getEmail(), user.getPassword())).collect(Collectors.toSet()),
+                chat.getUsers().stream().map(user -> new UserDto(user.getId(), user.getName(), user.getPassword())).collect(Collectors.toSet()),
                 chat.getMessages().stream().findFirst().map(Message::getId).orElse(null),
                 chat.getMessages().stream().findFirst().map(Message::getContent).orElse(null),
                 chat.getMessages().stream().findFirst().map(Message::getCreatedAt).orElse(null),
@@ -43,7 +43,6 @@ public class ChatDto implements Serializable {
     public static class UserDto implements Serializable {
         Long id;
         String name;
-        String email;
         String password;
     }
 }

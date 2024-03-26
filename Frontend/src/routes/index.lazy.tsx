@@ -19,12 +19,15 @@ import {
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
+import { loginUser, registerUser } from "@/api/user.ts";
+import { currentUserStore } from "@/store.ts";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
 });
 
 function Index() {
+  const user = currentUserStore((state) => state.user);
   const formSchema = z.object({
     username: z.string().min(3).max(50),
     password: z
@@ -45,9 +48,20 @@ function Index() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    loginUser(values.username, values.password);
+    if (user !== undefined) {
+      window.location.href = "/chat-page";
+    }
+  }
+
+  function onRegister(values: z.infer<typeof formSchema>) {
+    registerUser({
+      name: values.username,
+      password: values.password,
+    });
+    if (user !== undefined) {
+      window.location.href = "/chat-page";
+    }
   }
 
   return (
@@ -56,7 +70,11 @@ function Index() {
         <CardTitle className={"flex justify-center pt-2"}>Login</CardTitle>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form
+              onSubmit={
+                form.handleSubmit(onSubmit) || form.handleSubmit(onRegister)
+              }
+            >
               <FormField
                 control={form.control}
                 name="username"
@@ -98,7 +116,7 @@ function Index() {
             </form>
           </Form>
         </CardContent>
-        <CardFooter>
+        <CardFooter className={"justify-evenly flex"}>
           <Button
             type="submit"
             className="px-4 py-2 justify-end flex"
@@ -106,6 +124,7 @@ function Index() {
           >
             Login
           </Button>
+          <Button onClick={form.handleSubmit(onRegister)}>Register</Button>
         </CardFooter>
       </Card>
     </div>
