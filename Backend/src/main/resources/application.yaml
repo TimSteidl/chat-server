@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: chat-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/chatdb
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate.ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
