@@ -14,3 +14,14 @@
 - Feinschliff am Backend
 - Login im Front und Backend fertig
 - Wechsel zu mySql Datenbank
+
+### Mittwoch:
+
+#### Vormittag:
+
+- Viel Debuggen der Login Funktion, da es einen Fehler im Backend gab
+- Übersicht von Chats im Frontend hergestellt
+
+#### Nachmittag:
+
+- Senden von Nachrichten + Testen der selbigen
