@@ -1,5 +1,15 @@
 # Projektdokumentation
 
+### Starten der Anwendung:
+
+Auf dem Port 3306 sollte eine mySql Datenbank laufen.
+
+Danach kann Spring gestartet werden.
+
+Ebenfalls kann dann im Frontend mit npm install und anschließend npm run dev das Frontend gestartet werden.
+
+
+
 ### Dienstag - erster Arbeitstag
 
 #### Vormittag:
