@@ -25,3 +25,4 @@
 #### Nachmittag:
 
 - Senden von Nachrichten + Testen der selbigen
+- Leider musste ich sehr viel Zeit mit dem Debuggen verbringen und habe noch keine Lösung
