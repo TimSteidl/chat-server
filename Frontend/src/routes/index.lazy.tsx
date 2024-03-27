@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Card,
   CardContent,
@@ -27,7 +27,8 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-  const user = currentUserStore((state) => state.user);
+  const navigate = useNavigate({ from: "/" });
+  const setUser = currentUserStore((state) => state.setUser);
   const formSchema = z.object({
     username: z.string().min(3).max(50),
     password: z
@@ -48,20 +49,26 @@ function Index() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    loginUser(values.username, values.password);
-    if (user !== undefined) {
-      window.location.href = "/chat-page";
-    }
+    loginUser(values.username, values.password).then((r) => {
+      if (r !== undefined) {
+        setUser(r);
+        navigate({ to: "/chat-page" });
+      } else {
+        setUser({ id: 0, name: "debug", password: "" });
+      }
+    });
   }
 
   function onRegister(values: z.infer<typeof formSchema>) {
     registerUser({
       name: values.username,
       password: values.password,
+    }).then((r) => {
+      if (r !== undefined) {
+        setUser(r);
+        navigate({ to: "/chat-page" });
+      }
     });
-    if (user !== undefined) {
-      window.location.href = "/chat-page";
-    }
   }
 
   return (

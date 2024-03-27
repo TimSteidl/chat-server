@@ -1,7 +1,6 @@
 package de.volkswagen.chat.chat;
 
 
-import de.volkswagen.chat.user.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +17,14 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<ChatDto> getChats(@PathVariable long id) {
-        return ResponseEntity.ok(chatService.getChats(id));
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Set<Chat>> getAllChatsForUser(@PathVariable long id) {
+        return ResponseEntity.ok(chatService.getAllChatsForUser(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Set<ChatDto>> getAllChatsForUser(@RequestBody User user) {
-        System.out.println(user.getName());
-        return ResponseEntity.ok(chatService.getAllChatsForUser(user));
+    @PostMapping("/create")
+    public ResponseEntity<ChatDto> createChat(@RequestBody ChatDto chatDto) {
+        return ResponseEntity.ok(chatService.createChat(chatDto));
     }
 }

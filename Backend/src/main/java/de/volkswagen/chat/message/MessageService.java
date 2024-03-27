@@ -22,6 +22,7 @@ public class MessageService {
     }
 
     public Message sendMessage(MessageDto messageDto) {
+        System.out.println(messageDto.toString());
         Chat chat =
                 chatRepository.findById(messageDto.getChatId()).orElseThrow(() -> new IllegalArgumentException("Chat not found"));
         User user =

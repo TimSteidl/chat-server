@@ -10,7 +10,7 @@ export const Route = createRootRoute({
 });
 
 function Index() {
-  const logout = currentUserStore((state) => state.logout);
+  const logout = currentUserStore((state) => state.setUser);
   return (
     <ThemeProvider>
       <div className={"p-2 px-14 flex justify-between border-b-4"}>
@@ -19,7 +19,7 @@ function Index() {
           <ModeToggle />
           <Link
             to={"/"}
-            onClick={() => logout()}
+            onClick={() => logout({ id: 0, name: "", password: "" })}
             className="rounded hover:bg-secondary p-3 px-4"
           >
             <LogOut className={"h-[1.2rem] w-[1.2rem]"} />
@@ -27,7 +27,7 @@ function Index() {
         </div>
       </div>
       <Outlet />
-      <Toaster />
+      <Toaster richColors position={"top-center"} />
     </ThemeProvider>
   );
 }

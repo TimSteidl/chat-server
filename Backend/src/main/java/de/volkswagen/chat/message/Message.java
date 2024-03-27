@@ -21,14 +21,20 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     @ManyToOne
     private User user;
     @ManyToOne
     @JsonBackReference(value = "message-chat")
     private Chat chat;
 
+    public Message(String content, User user, Chat chat) {
+        this.content = content;
+        this.user = user;
+        this.chat = chat;
+    }
+
     public MessageDto convertMessageToDto() {
-        return new MessageDto(id, content, user.getId(), user.getName(), chat.getId());
+        return new MessageDto(content, user.getId(), chat.getId());
     }
 }

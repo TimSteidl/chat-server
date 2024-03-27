@@ -1,6 +1,7 @@
 package de.volkswagen.chat.chat;
 
 import de.volkswagen.chat.message.Message;
+import de.volkswagen.chat.user.User;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -34,6 +35,10 @@ public class ChatDto implements Serializable {
                 chat.getMessages().stream().findFirst().map(Message::getCreatedAt).orElse(null),
                 chat.getMessages().stream().findFirst().map(message -> message.getUser().getId()).orElse(null),
                 chat.getMessages().stream().findFirst().map(message -> message.getUser().getName()).orElse(null));
+    }
+
+    public static Chat convertDtoToChat(ChatDto chatDto, Set<User> users) {
+        return new Chat(chatDto.getChatName(), chatDto.getChatDescription(), users);
     }
 
     /**

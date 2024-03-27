@@ -5,30 +5,21 @@ import de.volkswagen.chat.user.User;
 import lombok.Value;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * DTO for {@link Message}
  */
 @Value
 public class MessageDto implements Serializable {
-    Long id;
     String content;
-    Long userId;
-    String userName;
-    Long chatId;
+    long userId;
+    long chatId;
 
     public static Message convertDtoToMessage(MessageDto messageDto, User user, Chat chat) {
-        Message message = new Message();
-        message.setId(messageDto.getId());
-        message.setContent(messageDto.getContent());
-        message.setCreatedAt(LocalDateTime.now());
-        message.setUser(user);
-        message.setChat(chat);
-        return message;
+        return new Message(messageDto.getContent(), user, chat);
     }
 
     public static MessageDto convertMessageToDto(Message message) {
-        return new MessageDto(message.getId(), message.getContent(), message.getUser().getId(), message.getUser().getName(), message.getChat().getId());
+        return new MessageDto(message.getContent(), message.getUser().getId(), message.getChat().getId());
     }
 }

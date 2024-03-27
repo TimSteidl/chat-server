@@ -16,11 +16,11 @@ public class MessageController {
 
     public MessageController(MessageService messageService) {
         this.messageService = messageService;
-
     }
 
     @PostMapping
-    public ResponseEntity<MessageDto> sendMessage(MessageDto messageDto) {
-        return ResponseEntity.ok(MessageDto.convertMessageToDto(messageService.sendMessage(messageDto)));
+    public ResponseEntity<MessageDto> sendMessage(MessageDto message) {
+        System.out.println(message.toString());
+        return ResponseEntity.ok(MessageDto.convertMessageToDto(messageService.sendMessage(message)));
     }
 }

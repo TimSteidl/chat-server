@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -28,14 +28,19 @@ public class Chat {
     private String chatName;
     private String chatDescription;
     private LocalDate createdAt = LocalDate.now();
-
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "Chat_user",
                joinColumns = @JoinColumn(name = "chat_id"))
     @NotNull
-    private Set<User> users = new LinkedHashSet<>();
+    private Set<User> users = new HashSet<>();
     @OneToMany(mappedBy = "chat")
     @Nullable
     @JsonBackReference(value = "message-chat")
-    private Set<Message> messages;
+    private Set<Message> messages = new HashSet<>();
+
+    public Chat(String chatName, String chatDescription, Set<User> users) {
+        this.chatName = chatName;
+        this.chatDescription = chatDescription;
+        this.users = users;
+    }
 }
